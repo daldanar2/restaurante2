@@ -1,21 +1,20 @@
 public abstract class Producto {
+
     private String nombre;
     private String descripcion;
-    private double precio;
+    private double precioBase;
 
-    Producto(){
-
+    public Producto(String nombre, String descripcion, double precioBase) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precioBase = precioBase;
     }
 
-    public Producto(String nombre, String descripcion, double precio){
-        this.nombre=nombre;
-        this.descripcion=descripcion;
-        this.precio=precio;
-    }
-
+    // Metodo abstracto
     public abstract double calcularPrecioFinal();
 
-    //GET y SET
+    // GET y SET
+
     public String getNombre() {
         return nombre;
     }
@@ -32,11 +31,11 @@ public abstract class Producto {
         this.descripcion = descripcion;
     }
 
-    public double getPrecio() {
-        return precio;
+    public double getPrecioBase() {
+        return precioBase;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setPrecioBase(double precioBase) {
+        this.precioBase = precioBase;
     }
 }

@@ -8,91 +8,320 @@ public class Main {
 
         Restaurante restaurante = new Restaurante();
 
-        System.out.println("===== SISTEMA DE RESTAURANTE =====");
+        Pedido pedidoActual = null;
 
-        System.out.print("Ingrese numero de mesa: ");
-        int numeroMesa = teclado.nextInt();
-        teclado.nextLine();
+        int opcion;
 
-        System.out.print("Ingrese nombre del mesero: ");
-        String mesero = teclado.nextLine();
+        do {
 
-        Mesa mesa1 = new Mesa(numeroMesa, mesero);
+            System.out.println(
+                    "\n===== SISTEMA DE RESTAURANTE ====="
+            );
 
-        Pedido pedido1 = new Pedido(mesa1);
+            System.out.println(
+                    "1. Crear nuevo pedido"
+            );
 
-        // ENTRADA
-        System.out.println("\n--- ENTRADA ---");
+            System.out.println(
+                    "2. Agregar producto al pedido"
+            );
 
-        System.out.print("Nombre de la entrada: ");
-        String nombreEntrada = teclado.nextLine();
+            System.out.println(
+                    "3. Generar cuenta"
+            );
 
-        System.out.print("Descripcion: ");
-        String descripcionEntrada = teclado.nextLine();
+            System.out.println(
+                    "4. Cerrar pedido"
+            );
 
-        System.out.print("Precio: Q");
-        double precioEntrada = teclado.nextDouble();
-        teclado.nextLine();
+            System.out.println(
+                    "5. Mostrar historial de ventas"
+            );
 
-        Entrada entrada1 = new Entrada(
-                nombreEntrada,
-                descripcionEntrada,
-                precioEntrada
-        );
+            System.out.println(
+                    "6. Mostrar total de ventas del dia"
+            );
 
-        // PLATO PRINCIPAL
-        System.out.println("\n--- PLATO PRINCIPAL ---");
+            System.out.println(
+                    "0. Salir"
+            );
 
-        System.out.print("Nombre del plato principal: ");
-        String nombrePlato = teclado.nextLine();
+            System.out.print(
+                    "Seleccione una opcion: "
+            );
 
-        System.out.print("Descripcion: ");
-        String descripcionPlato = teclado.nextLine();
+            opcion = teclado.nextInt();
 
-        System.out.print("Precio: Q");
-        double precioPlato = teclado.nextDouble();
-        teclado.nextLine();
+            teclado.nextLine();
 
-        PlatoPrincipal plato1 = new PlatoPrincipal(
-                nombrePlato,
-                descripcionPlato,
-                precioPlato
-        );
+            switch (opcion) {
 
-        // POSTRE
-        System.out.println("\n--- POSTRE ---");
+                case 1:
 
-        System.out.print("Nombre del postre: ");
-        String nombrePostre = teclado.nextLine();
+                    if (
+                            pedidoActual != null
+                                    &&
+                                    !pedidoActual.isCerrado()
+                    ) {
 
-        System.out.print("Descripcion: ");
-        String descripcionPostre = teclado.nextLine();
+                        System.out.println(
+                                "Primero debe cerrar el pedido actual."
+                        );
 
-        System.out.print("Precio: Q");
-        double precioPostre = teclado.nextDouble();
+                        break;
+                    }
 
-        Postre postre1 = new Postre(
-                nombrePostre,
-                descripcionPostre,
-                precioPostre
-        );
+                    System.out.print(
+                            "Numero de mesa: "
+                    );
 
-        // AGREGAR PRODUCTOS AL PEDIDO
-        pedido1.agregarProducto(entrada1);
-        pedido1.agregarProducto(plato1);
-        pedido1.agregarProducto(postre1);
+                    int numeroMesa =
+                            teclado.nextInt();
 
-        // MOSTRAR PEDIDO
-        System.out.println("\n===== CUENTA =====");
-        pedido1.mostrarPedido();
+                    teclado.nextLine();
 
-        // CERRAR Y GUARDAR
-        pedido1.cerrarPedido();
-        restaurante.guardarPedido(pedido1);
+                    System.out.print(
+                            "Identificador del mesero: "
+                    );
 
-        System.out.println("\n===== VENTAS =====");
-        restaurante.mostrarVentas();
+                    String idMesero =
+                            teclado.nextLine();
+
+                    Mesa mesa =
+                            new Mesa(
+                                    numeroMesa,
+                                    idMesero
+                            );
+
+                    pedidoActual =
+                            new Pedido(mesa);
+
+                    System.out.println(
+                            "Pedido creado correctamente."
+                    );
+
+                    break;
+
+
+                case 2:
+
+                    if (
+                            pedidoActual == null
+                                    ||
+                                    pedidoActual.isCerrado()
+                    ) {
+
+                        System.out.println(
+                                "Debe crear un pedido abierto primero."
+                        );
+
+                        break;
+                    }
+
+                    agregarProducto(
+                            teclado,
+                            pedidoActual
+                    );
+
+                    break;
+
+
+                case 3:
+
+                    if (pedidoActual == null) {
+
+                        System.out.println(
+                                "No hay un pedido actual."
+                        );
+
+                    } else {
+
+                        pedidoActual.mostrarPedido();
+                    }
+
+                    break;
+
+
+                case 4:
+
+                    if (pedidoActual == null) {
+
+                        System.out.println(
+                                "No hay un pedido para cerrar."
+                        );
+
+                    } else if (
+                            pedidoActual.isCerrado()
+                    ) {
+
+                        System.out.println(
+                                "El pedido ya esta cerrado."
+                        );
+
+                    } else {
+
+                        pedidoActual.cerrarPedido();
+
+                        restaurante.guardarPedido(
+                                pedidoActual
+                        );
+                    }
+
+                    break;
+
+
+                case 5:
+
+                    restaurante
+                            .mostrarHistorialVentas();
+
+                    break;
+
+
+                case 6:
+
+                    restaurante.mostrarVentas();
+
+                    break;
+
+
+                case 0:
+
+                    System.out.println(
+                            "Programa finalizado."
+                    );
+
+                    break;
+
+
+                default:
+
+                    System.out.println(
+                            "Opcion invalida."
+                    );
+            }
+
+        } while (opcion != 0);
+
 
         teclado.close();
     }
-}
+
+
+    public static void agregarProducto(
+            Scanner teclado,
+            Pedido pedido
+    ) {
+
+        System.out.println(
+                "\n--- TIPO DE PRODUCTO ---"
+        );
+
+        System.out.println(
+                "1. Entrada"
+        );
+
+        System.out.println(
+                "2. Plato principal"
+        );
+
+        System.out.println(
+                "3. Postre"
+        );
+
+        System.out.print(
+                "Seleccione: "
+        );
+
+        int tipo = teclado.nextInt();
+
+        teclado.nextLine();
+
+
+        if (
+                tipo < 1
+                        ||
+                        tipo > 3
+        ) {
+
+            System.out.println(
+                    "Tipo de producto invalido."
+            );
+
+            return;
+        }
+
+
+        System.out.print(
+                "Nombre: "
+        );
+
+        String nombre =
+                teclado.nextLine();
+
+
+        System.out.print(
+                "Descripcion: "
+        );
+
+        String descripcion =
+                teclado.nextLine();
+
+
+        System.out.print(
+                "Precio base: Q"
+        );
+
+        double precio =
+                teclado.nextDouble();
+
+        teclado.nextLine();
+
+
+        Producto producto;
+
+
+        switch (tipo) {
+
+            case 1:
+
+                producto =
+                        new Entrada(
+                                nombre,
+                                descripcion,
+                                precio
+                        );
+
+                break;
+
+
+            case 2:
+
+                producto =
+                        new PlatoPrincipal(
+                                nombre,
+                                descripcion,
+                                precio
+                        );
+
+                break;
+
+
+            default:
+
+                producto =
+                        new Postre(
+                                nombre,
+                                descripcion,
+                                precio
+                        );
+
+                break;
+        }
+
+
+        pedido.agregarProducto(
+                producto
+        );
+    }
+}1

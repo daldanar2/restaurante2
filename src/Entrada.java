@@ -1,11 +1,13 @@
 public class Entrada extends Producto {
 
-    public Entrada(String nombre, String descripcion, double precio){
-        super(nombre, descripcion, precio);
+    public Entrada(String nombre, String descripcion, double precioBase) {
+        super(nombre, descripcion, precioBase);
     }
 
     @Override
     public double calcularPrecioFinal() {
-        return getPrecio();
+
+        // La entrada tiene 5% de descuento
+        return getPrecioBase() * 0.95;
     }
 }

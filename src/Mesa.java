@@ -1,17 +1,15 @@
 public class Mesa {
+
     private int numeroMesa;
-    private String mesero;
+    private String idMesero;
 
-    Mesa(){
-
+    public Mesa(int numeroMesa, String idMesero) {
+        this.numeroMesa = numeroMesa;
+        this.idMesero = idMesero;
     }
 
-    public Mesa(int numeroMesa, String mesero){
-        this.numeroMesa=numeroMesa;
-        this.mesero=mesero;
-    }
+    // GET y SET
 
-    //GET y SET
     public int getNumeroMesa() {
         return numeroMesa;
     }
@@ -20,11 +18,11 @@ public class Mesa {
         this.numeroMesa = numeroMesa;
     }
 
-    public String getMesero() {
-        return mesero;
+    public String getIdMesero() {
+        return idMesero;
     }
 
-    public void setMesero(String mesero) {
-        this.mesero = mesero;
+    public void setIdMesero(String idMesero) {
+        this.idMesero = idMesero;
     }
 }

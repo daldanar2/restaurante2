@@ -1,17 +1,13 @@
 public class PlatoPrincipal extends Producto {
 
-    public PlatoPrincipal(String nombre, String descripcion, double precio){
-        super(nombre, descripcion, precio);
+    public PlatoPrincipal(String nombre, String descripcion, double precioBase) {
+        super(nombre, descripcion, precioBase);
     }
 
     @Override
     public double calcularPrecioFinal() {
-        double iva;
-        double precioFinal;
 
-        iva = getPrecio() * 0.12;
-        precioFinal = getPrecio() + iva;
-
-        return precioFinal;
+        // Plato principal tiene 12% adicional
+        return getPrecioBase() * 1.12;
     }
 }
